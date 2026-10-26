@@ -63,6 +63,7 @@ These rules apply to every piece of visible copy on the site.
 | `motion.js` | Scroll reveal, and clips that load only when near the viewport |
 | `nav.js` | Sliding nav highlight and the Connect dropdown |
 | `lightbox.js` | Full-screen viewer for images and clips |
+| `weather-favicon.js` | Tab icon showing the weather where the visitor is |
 
 Bump the `?v=` number on `style.css` (and on a JS file you change) in all four pages whenever
 you edit it, otherwise returning visitors keep the cached copy.
@@ -91,6 +92,28 @@ loads and nothing is collected. The page still looks fine, so this failure is si
 
 To check it is working, load a page and watch for a request to
 `google-analytics.com/g/collect` carrying `tid=G-9GZDQ40ZDH`.
+
+## Weather favicon
+
+The tab icon shows the current weather at the visitor's location.
+
+`avatar.jpg` is declared as the icon in the markup and stays there until a real reading
+arrives. A lookup that fails leaves the avatar in place, because a wrong sky is worse than
+no sky. Three outside calls are possible and all of them are keyless.
+
+1. `get.geojs.io` turns the visitor's IP into coordinates
+2. If that fails, the browser timezone gives a city name, which
+   `geocoding-api.open-meteo.com` turns into coordinates
+3. `api.open-meteo.com` returns a WMO weather code and a day or night flag
+
+The result is cached in `localStorage` for 30 minutes, so moving between pages costs nothing.
+Everything runs on `load` behind a 3.5 second timeout, so it never delays rendering.
+
+Codes map to `☀️ 🌙 🌤️ ☁️ ☔️ 🌧️ ❄️ ⚡️`. The mapping lives in `emojiFor`.
+
+**Privacy.** The visitor's IP reaches geojs and Open-Meteo. Nothing is stored beyond the
+emoji and a timestamp, and no coordinates are written to disk. Removing the script removes
+the exposure, and the avatar icon keeps working.
 
 ## Publishing
 
