@@ -64,6 +64,7 @@ These rules apply to every piece of visible copy on the site.
 | `nav.js` | Sliding nav highlight and the Connect dropdown |
 | `lightbox.js` | Full-screen viewer for images and clips |
 | `weather-favicon.js` | Tab icon showing the weather where the visitor is |
+| `icons/` | The eight weather PNGs the favicon switches between |
 
 Bump the `?v=` number on `style.css` (and on a JS file you change) in all four pages whenever
 you edit it, otherwise returning visitors keep the cached copy.
@@ -109,11 +110,25 @@ no sky. Three outside calls are possible and all of them are keyless.
 The result is cached in `localStorage` for 30 minutes, so moving between pages costs nothing.
 Everything runs on `load` behind a 3.5 second timeout, so it never delays rendering.
 
-Codes map to `☀️ 🌙 🌤️ ☁️ ☔️ 🌧️ ❄️ ⚡️`. The mapping lives in `emojiFor`.
+**Icons are real PNG files in `icons/`, not inline SVG.** Safari ignores SVG favicons and
+ignores `data:` URIs, so an icon built inside the page never reaches its tab. This is the
+whole reason the files exist. Setting `href` on the existing link is also not enough, because
+a browser that has already resolved an icon tends to keep it. `paint` removes every icon link
+and appends a new one.
 
-**Privacy.** The visitor's IP reaches geojs and Open-Meteo. Nothing is stored beyond the
-emoji and a timestamp, and no coordinates are written to disk. Removing the script removes
-the exposure, and the avatar icon keeps working.
+The eight files are `sun`, `moon`, `partly`, `cloud`, `drizzle`, `rain`, `snow` and `bolt`,
+each 64px and under 7 KB. A visitor fetches exactly one. They were rendered from
+`☀️ 🌙 🌤️ ☁️ 🌧️ ☔️ ❄️ ⚡️` and chosen for legibility at 16px rather than precision, so the
+umbrella carries real rain, the rain cloud marks drizzle, fog shares the overcast cloud and a
+bare bolt stands in for thunderstorms. Only clear skies change after dark. `iconFor` holds the
+mapping from WMO code to file name.
+
+To preview a condition without waiting for the weather, load any page with `?sky=rain`, and
+add `&night=1` for the night variant.
+
+**Privacy.** The visitor's IP reaches geojs and Open-Meteo. Nothing is stored beyond the icon
+name and a timestamp, and no coordinates are written to disk. Removing the script removes the
+exposure, and the avatar icon keeps working.
 
 ## Publishing
 

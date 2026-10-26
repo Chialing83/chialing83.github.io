@@ -3,51 +3,47 @@
 // The lookup is best effort. When anything fails, or takes too long, the tab
 // keeps the avatar declared in the markup. Showing no weather is better than
 // showing weather that is not theirs.
+//
+// Icons are real PNG files rather than inline SVG. Safari ignores both SVG
+// favicons and data URIs, so anything built in the page never reaches its tab.
 (function () {
   'use strict';
 
   var CACHE_KEY = 'wx-favicon';
   var CACHE_MS = 30 * 60 * 1000;
   var TIMEOUT_MS = 3500;
+  var DIR = 'icons/';
 
   // WMO weather codes, as returned by Open-Meteo.
   // https://open-meteo.com/en/docs
-  function emojiFor(code, isDay) {
-    if (code === 0) return isDay ? '☀️' : '🌙';      // clear
-    if (code === 1 || code === 2) return isDay ? '🌤️' : '🌙'; // mostly clear
+  function iconFor(code, isDay) {
+    if (code === 0) return isDay ? 'sun' : 'moon';
+    if (code === 1 || code === 2) return isDay ? 'partly' : 'moon';
     // Fog rides along with overcast. The fog emoji is unreadable at 16px
-    if (code === 3 || code === 45 || code === 48) return '☁️';
+    if (code === 3 || code === 45 || code === 48) return 'cloud';
     // The umbrella carries real rain because it still reads at 16px. The rain
     // cloud turns to grey mush at that size, so it marks the lighter drizzle.
-    if (code >= 51 && code <= 57) return '🌧️';      // drizzle
-    if (code >= 61 && code <= 67) return '☔️';      // rain
-    if (code >= 71 && code <= 77) return '❄️';      // snow
-    if (code >= 80 && code <= 82) return '☔️';      // rain showers
-    if (code === 85 || code === 86) return '❄️';    // snow showers
-    if (code >= 95) return '⚡️';                    // thunderstorm
+    if (code >= 51 && code <= 57) return 'drizzle';
+    if (code >= 61 && code <= 67) return 'rain';
+    if (code >= 71 && code <= 77) return 'snow';
+    if (code >= 80 && code <= 82) return 'rain';
+    if (code === 85 || code === 86) return 'snow';
+    if (code >= 95) return 'bolt';
     return null;
   }
 
-  function paint(emoji) {
-    var svg =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' +
-      '<text x="50" y="54" font-size="88" text-anchor="middle" dominant-baseline="central">' +
-      emoji +
-      '</text></svg>';
-    var href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+  function paint(name) {
+    // Setting href on the existing link is not enough. Once a browser has
+    // resolved an icon it tends to keep it, so drop every icon link and append
+    // a fresh one. A new element is a new resource, which forces the repaint.
+    var old = document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]');
+    for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
 
-    // Replace every declared icon, otherwise a browser may keep preferring one
-    var links = document.querySelectorAll('link[rel~="icon"]');
-    if (!links.length) {
-      var made = document.createElement('link');
-      made.rel = 'icon';
-      document.head.appendChild(made);
-      links = [made];
-    }
-    for (var i = 0; i < links.length; i++) {
-      links[i].type = 'image/svg+xml';
-      links[i].href = href;
-    }
+    var link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = DIR + name + '.png';
+    document.head.appendChild(link);
   }
 
   function getJSON(url) {
@@ -67,15 +63,15 @@
       if (!raw) return null;
       var hit = JSON.parse(raw);
       if (!hit || Date.now() - hit.ts > CACHE_MS) return null;
-      return hit.emoji;
+      return hit.name;
     } catch (e) {
       return null;
     }
   }
 
-  function writeCache(emoji) {
+  function writeCache(name) {
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ emoji: emoji, ts: Date.now() }));
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ name: name, ts: Date.now() }));
     } catch (e) {}
   }
 
@@ -115,7 +111,7 @@
     var q = new URLSearchParams(location.search);
     var name = q.get('sky');
     if (!name || !(name in PREVIEW)) return null;
-    return emojiFor(PREVIEW[name], q.get('night') !== '1');
+    return iconFor(PREVIEW[name], q.get('night') !== '1');
   }
 
   function start() {
@@ -142,10 +138,10 @@
       .then(function (wx) {
         var now = wx && wx.current;
         if (!now) return;
-        var emoji = emojiFor(now.weather_code, now.is_day === 1);
-        if (!emoji) return;
-        writeCache(emoji);
-        paint(emoji);
+        var name = iconFor(now.weather_code, now.is_day === 1);
+        if (!name) return;
+        writeCache(name);
+        paint(name);
       })
       .catch(function () {
         // Leave the avatar in place.
