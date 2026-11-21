@@ -5,7 +5,11 @@
   if (!nav) return;
   const indicator = nav.querySelector('.nav-indicator');
   const links = [...nav.querySelectorAll(':scope > a, .nav-trigger')];
-  const current = nav.querySelector('a[aria-current="page"]');
+  // A current page inside a dropdown rests the highlight on that dropdown's trigger
+  const currentLink = nav.querySelector('a[aria-current="page"]');
+  const currentMenu = currentLink && currentLink.closest('.nav-menu');
+  const current = currentMenu ? currentMenu.querySelector('.nav-trigger') : currentLink;
+  if (currentMenu) current.classList.add('is-current');
 
   const moveTo = (link) => {
     if (!link) { indicator.style.opacity = '0'; return; }
@@ -32,24 +36,37 @@
   window.addEventListener('resize', () => moveTo(current));
   if (document.fonts) document.fonts.ready.then(() => moveTo(current));
 
-  // Connect dropdown: opens on click/tap or hover, closes on outside click and Escape
-  const menu = nav.querySelector('.nav-menu');
-  if (menu) {
+  // Dropdowns (Work and Connect): open on click/tap or hover, close on outside click and Escape.
+  // Only one is open at a time.
+  const menus = [...nav.querySelectorAll('.nav-menu')];
+  const closers = [];
+  menus.forEach((menu) => {
     const trigger = menu.querySelector('.nav-trigger');
     const items = [...menu.querySelectorAll('.nav-dropdown a')];
     let closeTimer;
+    let hoverOpenedAt = 0;
     const setOpen = (open) => {
       clearTimeout(closeTimer);
+      if (open) closers.forEach((close) => close !== setOpen && close(false));
       menu.classList.toggle('is-open', open);
       trigger.setAttribute('aria-expanded', String(open));
-      moveTo(open ? trigger : current);
+      if (open) moveTo(trigger);
+      else if (!nav.querySelector('.nav-menu.is-open')) moveTo(current);
     };
-    trigger.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
+    closers.push(setOpen);
+    // A click that lands right after hover opened the menu keeps it open instead of closing it
+    trigger.addEventListener('click', () => {
+      const justHovered = Date.now() - hoverOpenedAt < 500;
+      setOpen(justHovered || !menu.classList.contains('is-open'));
+    });
     if (window.matchMedia('(hover: hover)').matches) {
-      menu.addEventListener('mouseenter', () => setOpen(true));
+      menu.addEventListener('mouseenter', () => {
+        if (!menu.classList.contains('is-open')) hoverOpenedAt = Date.now();
+        setOpen(true);
+      });
       menu.addEventListener('mouseleave', () => { closeTimer = setTimeout(() => setOpen(false), 180); });
     }
-    document.addEventListener('click', (e) => { if (!menu.contains(e.target)) setOpen(false); });
+    document.addEventListener('click', (e) => { if (!menu.contains(e.target) && menu.classList.contains('is-open')) setOpen(false); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && menu.classList.contains('is-open')) { setOpen(false); trigger.focus(); }
     });
@@ -62,7 +79,7 @@
       items[next].focus();
     });
     menu.addEventListener('focusout', (e) => { if (!menu.contains(e.relatedTarget)) setOpen(false); });
-  }
+  });
 
   // Slightly lift the pill once the page scrolls
   const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);

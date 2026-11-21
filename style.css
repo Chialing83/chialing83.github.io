@@ -125,7 +125,7 @@ nav.anchors a[aria-current="page"] { color: var(--fg); }
   min-width: 168px;
   padding: 6px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
   -webkit-backdrop-filter: blur(12px) saturate(1.5);
   backdrop-filter: blur(12px) saturate(1.5);
   border: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
@@ -154,6 +154,30 @@ nav.anchors .nav-dropdown a {
 nav.anchors .nav-dropdown a:hover,
 nav.anchors .nav-dropdown a:focus-visible { background: var(--card); color: var(--accent); }
 .nav-dropdown svg { width: 16px; height: 16px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* Work opens from its left edge so it stays on screen beside Home */
+.nav-menu--work .nav-dropdown { left: -5px; right: auto; transform-origin: top left; }
+nav.anchors .nav-dropdown a { white-space: nowrap; }
+.nav-trigger.is-current { color: var(--fg); }
+/* Active state: the case study the reader is on, in the accent colour, with a check */
+nav.anchors .nav-dropdown a[aria-current="page"],
+nav.anchors .nav-dropdown a[aria-current="page"]:hover {
+  background: none;
+  box-shadow: none;
+  color: var(--accent);
+  font-weight: 600;
+  padding-right: 14px;
+}
+nav.anchors .nav-dropdown a[aria-current="page"]::after {
+  content: "";
+  flex-shrink: 0;
+  width: 5px;
+  height: 9px;
+  margin: -3px 4px 0 auto;
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  box-sizing: content-box;
+  transform: rotate(45deg);
+}
 .nav-indicator {
   position: absolute;
   top: 5px;
@@ -413,6 +437,76 @@ a.logo:hover, a.logo:focus-visible { transform: translateY(-2px); box-shadow: 0 
 .card--hero h3 { font-size: 1.35rem; margin: 8px 0 8px; }
 .card--hero p { font-size: max(14px, 1rem); line-height: 1.6; }
 .card__cta { margin-top: 16px; font-size: max(14px, 0.95rem); color: var(--accent); }
+.card__list { margin: 0; padding-left: 1.1em; color: var(--muted); font-size: max(14px, 1rem); line-height: 1.6; }
+.card__list li + li { margin-top: 6px; }
+/* Automation Agents card: the clip framed as a backdrop, stacked cards behind it,
+   and the agent chat enlarged and overlapping on the right */
+/* The whole composition keeps one shape and only scales, centred in the card's media area,
+   so the backdrop, chat and layers sit the same way at every window size */
+.card__media--agents { display: flex; align-items: center; }
+.agent-hero { position: relative; width: 100%; aspect-ratio: 1.27; }
+.agent-hero::before,
+.agent-hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  height: 30%;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.agent-hero::before { left: 10%; top: 8%; width: 62%; opacity: 0.8; }
+.agent-hero::after { left: 13%; top: 4.5%; width: 56%; opacity: 0.5; }
+.agent-hero__stage {
+  position: absolute;
+  z-index: 1;
+  left: 7%;
+  top: 12%;
+  width: 68%;
+  /* Same shape as the backdrop's fixed crop, so the clip shows the same view at every window size */
+  aspect-ratio: 1341 / 1025;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.card__media .agent-hero__stage video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 0 55%;
+  opacity: 0; /* it feeds the two canvases, which redraw it with sharper scaling */
+}
+.agent-hero__backdrop { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Single clip version (Automation Builder card): the same stacked layers, with the clip centred */
+.agent-hero--solo::before { left: 13%; top: 11%; width: 74%; }
+.agent-hero--solo::after { left: 16%; top: 7%; width: 68%; }
+.agent-hero--solo .agent-hero__stage { left: 10%; top: 15%; width: 80%; aspect-ratio: 1820 / 1200; }
+.agent-hero__filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+/* Screens without retina density show the clips at about a third of their size, so sharpen the text */
+@media (max-resolution: 1.5dppx) {
+  .agent-hero__backdrop, .agent-hero__chat { filter: url(#agent-sharpen); }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* The clip only plays when the reader starts it, so show the clip and its controls */
+  .card__media .agent-hero__stage video { opacity: 1; }
+  .agent-hero__backdrop { display: none; }
+}
+.agent-hero__chat {
+  position: absolute;
+  z-index: 2;
+  right: 5%;
+  bottom: 3%;
+  height: 94.6%;
+  width: auto;
+  aspect-ratio: 712 / 1326;
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
 @media (min-width: 768px) {
   .card--hero { grid-template-columns: 3fr 2fr; }
   .card--hero .exp-media__placeholder { border-bottom: 0; border-right: 1px solid var(--border); }
@@ -538,6 +632,103 @@ footer {
   .case-hero--clips { grid-template-columns: 2.216fr 1.405fr 1.004fr; gap: 12px; margin-bottom: 40px; }
   .hero-clip--flow { grid-column: auto; }
 }
+/* Agentic design hero: a light grey dot grid that runs to the top and both sides of
+   the window and stops in a straight line where the panel used to end */
+.case-hero--dots {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.case-hero--dots::before {
+  content: "";
+  position: absolute;
+  top: -400px; /* past the top of the page, behind the floating nav */
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background-color: var(--card);
+  /* motion.js sets --dots-p from 0 to 1 as the reader scrolls past the band: the dots
+     drift up a little slower than the page, shrink and fade, as if settling away */
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--fg) calc(7% - 3% * var(--dots-p, 0)), transparent) calc(1.2px - 0.3px * var(--dots-p, 0)),
+    transparent calc(1.6px - 0.3px * var(--dots-p, 0))
+  );
+  background-size: 20px 20px;
+  background-position: center calc(100% + 60px * var(--dots-p, 0));
+}
+@media (min-width: 768px) {
+  .case-hero--dots { aspect-ratio: 3 / 1; }
+}
+/* Title on the dot grid: a glossy grey line of text with a second line under it */
+.dots-title {
+  position: absolute;
+  /* The dots run up to the top of the window, past main's 112px top padding, so centre
+     the text in that whole visible band rather than in the figure alone */
+  inset: -112px 0 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0 16px;
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 300;
+  /* Sized to the 20px dot grid: capitals are 0.643em tall in Rajdhani Light, so they span
+     exactly one dot space here and two on wider screens, and every line is two spaces.
+     motion.js then moves the title so its baseline sits on a dot row (--title-snap) */
+  font-size: 31.104px;
+  line-height: 40px;
+  transform: translateY(calc(var(--title-snap, 0px) + 60px * var(--dots-p, 0)));
+  letter-spacing: 0;
+  text-align: center;
+  pointer-events: none;
+}
+.dots-title > span { grid-area: 1 / 1; }
+.dots-title__probe { display: inline-block; width: 0; height: 0; }
+/* Second line: same face, a little under half size.
+   motion.js sets --sub-snap so its baseline lands on the dot row two or three below the title's */
+.dots-title__sub {
+  display: block;
+  /* Moved with margin, not top, so it stays inside the glossy fill's painted area */
+  margin-top: var(--sub-snap, 0px);
+  font-size: 0.54em;
+  font-weight: 500;
+  line-height: 20px;
+}
+/* Typing: motion.js wraps each letter and shows them one by one. Hidden letters keep their
+   space, so the lines type out in their final place without shifting */
+.dots-title .ch { visibility: hidden; }
+.dots-title .ch.is-typed { visibility: visible; }
+@media (min-width: 768px) {
+  .dots-title { font-size: 62.208px; line-height: 80px; }
+  .dots-title__sub { font-size: 0.42em; line-height: 40px; }
+}
+/* Dark mode: a brighter silver gloss so it reads on the dark grid */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .dots-title__gloss {
+    background-image: linear-gradient(105deg, #b9b8b3 0%, #d6d5d0 22%, #f3f2ee 32%, #bdbcb7 46%, #a7a6a1 58%, #cfcec9 72%, #efeeea 80%, #b8b7b2 100%);
+    filter: none;
+  }
+}
+:root[data-theme="dark"] .dots-title__gloss {
+  background-image: linear-gradient(105deg, #b9b8b3 0%, #d6d5d0 22%, #f3f2ee 32%, #bdbcb7 46%, #a7a6a1 58%, #cfcec9 72%, #efeeea 80%, #b8b7b2 100%);
+  filter: none;
+}
+.dots-title__gloss {
+  color: transparent;
+  /* Light grey with fixed highlights, so it reads glossy without moving */
+  background-image: linear-gradient(105deg, #8c8b86 0%, #a9a8a3 22%, #c9c8c3 32%, #8f8e89 46%, #7a7974 58%, #a3a29d 72%, #c4c3be 80%, #8d8c87 100%);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: blur(0.4px) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
+}
+/* The full-width dot grid is wider than the page by the scrollbar's width, so clip it sideways */
+body { overflow-x: clip; }
 
 .case-kicker { margin: 0 0 8px; font-size: max(14px, 0.9rem); font-weight: 500; color: var(--accent); }
 .case-head h1 { margin: 0 0 16px; font-size: 2rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
@@ -633,6 +824,9 @@ footer {
   .case-split .case-figure { margin-top: 0; }
   .case-split--logic { grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: 40px; margin-top: 8px; }
   .case-split--logic .case-text p:last-of-type { margin-bottom: 16px; }
+  .case-split--feature { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  /* Solution and Achievements cards side by side at the same height */
+  .case-split--feature .case-callout { margin: 0; height: 100%; box-sizing: border-box; }
   .case-pair { grid-template-columns: 1fr 1fr; align-items: start; }
   .case-pair--uneven { grid-template-columns: 3fr 2fr; }
   .case-pair--match { grid-template-columns: var(--a) var(--b); }

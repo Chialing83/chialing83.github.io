@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Automation Agents · Chia-Ling Chen</title>
+  <meta name="description" content="Case study on the AI agents Chia-Ling Chen designed for Thryv CRM, starting with the AI-assisted Decision Diamond.">
+  <link rel="icon" href="avatar.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500&display=swap">
+  <link rel="stylesheet" href="style.css?v=135">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-07SR0QSF4S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-07SR0QSF4S');
+  </script>
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <nav class="anchors" aria-label="Site">
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a href="index.html">Home</a>
+        <div class="nav-menu nav-menu--work">
+          <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="work-menu">Work <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
+          <div class="nav-dropdown" id="work-menu">
+            <a href="thryv-automation.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/><path d="M6.5 9v4.5a2 2 0 0 0 2 2H14"/></svg>Automation Builder
+            </a>
+            <a href="agentic-design.html" aria-current="page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3.5 12.9 8.6 18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>Automation Agents
+            </a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <div class="nav-menu">
+          <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="connect-menu">Connect <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
+          <div class="nav-dropdown" id="connect-menu">
+            <a href="https://app.box.com/s/g18ac6s28a0lqebf420xtzzz90ov93px" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Resume
+            </a>
+            <a href="https://www.linkedin.com/in/silvia-chia-ling-chen" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>LinkedIn
+            </a>
+            <a href="mailto:chialing83@gmail.com">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <article class="case">
+      <div class="case-masthead">
+      <figure class="case-hero case-hero--dots">
+        <!-- Glossy title and second line, typed out by motion.js -->
+        <p class="dots-title">
+          <span class="dots-title__gloss">Human-centered Agent<span class="dots-title__probe" aria-hidden="true"></span><span class="dots-title__sub">Easier to use, faster to build, and always in the user's control<span class="dots-title__probe dots-title__probe--sub" aria-hidden="true"></span></span></span>
+        </p>
+      </figure>
+      </div>
+
+      <div class="case-body">
+      <header class="case-head">
+        <p class="case-kicker">Thryv CRM AI</p>
+        <h1>Automation Agents</h1>
+        <p class="case-lead">I design AI agents that work alongside users as they build and run their business on Thryv CRM. Each agent takes on a different job, from naming nodes to configuring complex rules. This case study starts with the Decision Diamond, now live in production.</p>
+      </header>
+
+      <dl class="case-meta">
+        <div><dt>Role</dt><dd>Sr. product designer</dd></div>
+        <div><dt>Timeline</dt><dd>2025 Q3 - present</dd></div>
+        <div><dt>Tools</dt><dd>Figma, FigJam, Claude</dd></div>
+        <div><dt>Collaboration</dt><dd>Product, engineering, data, research and content</dd></div>
+      </dl>
+
+      <section class="case-section" aria-labelledby="decision-diamond">
+        <div class="case-text">
+          <p class="case-kicker">Feature 1</p>
+          <h2 id="decision-diamond">AI-assisted Decision Diamond</h2>
+          <p>⚠️ The Decision Diamond decides which path a workflow takes, but it only checks contact details. Small businesses run on jobs, estimates and appointments, so owners linked three flows with tags just to route an estimate by value. Discoverability was the other friction. The Decision Diamond only appears when a user connects two downstream nodes to one upstream node, so it stays hidden on the canvas. Fixing both would unleash the builder's capacity and align it with business goals, turning an underused feature into a driver of adoption and revenue.</p>
+        </div>
+        <!-- The callout and the work behind it side by side, then the preview at full width -->
+        <div class="case-split case-split--feature">
+          <div class="case-text">
+            <div class="case-callout">
+              <p class="case-callout__title">Solution</p>
+              <p>The Decision Diamond now reads deals, quotes and appointments, and AI auto-reads upstream nodes to best suggest the rule to divert the qualified cohort to the next path. This is a huge milestone for the team to move forward to the Builder Agent that interprets plain language into workflows.</p>
+            </div>
+          </div>
+          <div class="case-text">
+            <div class="case-callout">
+              <p class="case-callout__title">Achievements</p>
+              <ul>
+                <li>Led the redesign from concept to production.</li>
+                <li>Picked up the PM hat to spec priority entities.</li>
+                <li>Tested the redesign with partners and small business owners on a live LLM prototype, not scripted answers.</li>
+                <li>Measured completion rate for discoverability, and completion time and error rate for quality.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <img decoding="async" src="media/thryv-automation/decision-diamond.jpg?v=3" alt="AI-assisted Decision Diamond, preview" loading="lazy">
+        </figure>
+        <div class="case-text">
+          <h3>AI Design Framework</h3>
+          <p>I ran a workshop with product and engineering to collect their ideas for AI in the builder, and interviewed our pilot group for what they actually wanted. Together that came to 48 requests across five themes, from discovery and guidance to pre-launch checks. Every one sounded reasonable on its own, and they piled up faster than we could scope them.</p>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <img decoding="async" src="media/thryv-automation/ai-request-synthesis.jpg" alt="Workshop and interview requests mapped onto the builder's touch points, grouped into five themes with counts, alongside the Decision Diamond expansion model and the agent hierarchy" loading="lazy">
+          <figcaption>Every request mapped onto a touch point in the builder, then grouped into five themes.</figcaption>
+        </figure>
+        <div class="case-text">
+          <h3>Alpha testing</h3>
+          <p>In alpha, the Decision Diamond reads the nodes upstream of it to understand what the flow is doing. It uses that context to help users set the rules that divert a designated group to the right downstream nodes.</p>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <video src="media/thryv-automation/decision-diamond-demo.mp4?v=2" muted loop playsinline preload="none" aria-label="AI-assisted Decision Diamond in the alpha build"></video>
+        </figure>
+        <!-- Archived: taxonomy paragraph, figure and caption. Kept for later, not shown on the site. Remove "hidden" to show it again -->
+        <div class="case-archive" hidden>
+          <div class="case-text">
+            <p>I built a taxonomy. One axis is the level of autonomy, how much the AI does and how much work is left to the user, from executing to reviewing to approving. The other is reach, from a focused config change to a platform wide agent. Three things decide where a feature lands: how users work today, how mature our model is for that task, and how much reliance the output can reasonably carry. Routing logic in the Decision Diamond changes where work goes, so a person reviews each rule before it takes effect. Auto renaming a sequence is small enough to check at a glance, so the guardrail is lighter. The user still reads and confirms it, and it is fast and easy.</p>
+          </div>
+          <figure class="case-figure case-figure--wide">
+            <img decoding="async" src="media/thryv-automation/ai-taxonomy.jpg" alt="Three phases from ideation to autonomy, each setting the level of AI involvement, the user workload, what the user gets from a prompt, and whether the user is executing, reviewing or approving" loading="lazy">
+            <figcaption>The taxonomy. Each phase sets how much the AI does and how much work is left to the user.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Archived: Feature 2, dashboard with an AI insight agent. Kept for later, not shown on the site. Remove "hidden" to show it again -->
+      <section class="case-section case-section--divided" aria-labelledby="dashboard-agent" hidden>
+        <div class="case-text">
+          <p class="case-kicker">Feature 2</p>
+          <h2 id="dashboard-agent">Dashboard with an AI insight agent</h2>
+          <p class="case-callout">I designed an insight agent on the dashboard that surfaces what changed and what to do next.</p>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <div class="exp-media__placeholder" role="img" aria-label="Dashboard with the AI insight agent">Image placeholder</div>
+        </figure>
+      </section>
+
+      <section class="case-section case-section--divided" aria-labelledby="builder-agent">
+        <div class="case-text">
+          <p class="case-kicker">Feature 2</p>
+          <h2 id="builder-agent">Automation Builder agent</h2>
+          <p class="case-callout">An AI agent helps users identify broken nodes, recommends fixes and runs health checks to keep workflows running smoothly.</p>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <video src="media/thryv-automation/builder-agent-demo.mp4" muted loop playsinline preload="none" aria-label="Automation Builder agent reviewing broken nodes"></video>
+        </figure>
+      </section>
+
+      <section class="case-section case-section--divided" aria-labelledby="auto-naming">
+        <div class="case-text">
+          <p class="case-kicker">Feature 3</p>
+          <h2 id="auto-naming">Auto-naming nodes</h2>
+          <p class="case-callout">An AI-assisted naming feature automatically interprets workflow configurations and generates descriptive node names. It helps users understand each step at a glance, navigate complex workflows more easily and avoid tedious manual renaming. An undo option lets users revert changes and stay in control.</p>
+        </div>
+        <figure class="case-figure case-figure--wide">
+          <video src="media/thryv-automation/auto-naming-demo.mp4" muted loop playsinline preload="none" aria-label="Auto-naming nodes on the canvas"></video>
+        </figure>
+      </section>
+
+      <p class="more case-back"><a href="about.html">See full experience →</a></p>
+      </div>
+    </article>
+
+    <section class="cta" aria-label="Get in touch">
+      <p class="footer__pitch">Want to talk about a project, a role, or an idea?</p>
+      <p class="footer__sub">I am always down for a coffee chat, even if it's virtual!</p>
+    </section>
+
+    <footer>
+      <p class="footer__note">&copy; 2026 Chia-Ling Chen <span class="footer__sep" aria-hidden="true"></span> Brewed with morning ☕️ + afternoon 🍵 + extra ❤️</p>
+      <nav class="footer__links" aria-label="Contact">
+        <a href="https://app.box.com/s/g18ac6s28a0lqebf420xtzzz90ov93px" target="_blank" rel="noopener">Resume</a>
+        <a href="https://www.linkedin.com/in/silvia-chia-ling-chen" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:chialing83@gmail.com">Email</a>
+      </nav>
+    </footer>
+  </main>
+  <script src="nav.js?v=4"></script>
+  <script src="motion.js?v=38"></script>
+  <script src="lightbox.js?v=3"></script>
+  <script>
+    // Pin the hero and title like a masthead, letting the case study slide over them,
+    // but only when the masthead fits in the window
+    (function () {
+      const mast = document.querySelector('.case-masthead');
+      if (!mast) return;
+      const fit = () => {
+        const top = parseFloat(getComputedStyle(document.querySelector('main')).paddingTop) || 0;
+        const ok = window.innerWidth >= 768 && mast.offsetHeight + top <= window.innerHeight - 40;
+        document.documentElement.classList.toggle('masthead-pinned', ok);
+      };
+      fit();
+      window.addEventListener('resize', fit);
+      window.addEventListener('load', fit);
+
+      // Fade the pinned hero as the content slides over it
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let ticking = false;
+      const fade = () => {
+        ticking = false;
+        if (!document.documentElement.classList.contains('masthead-pinned')) { mast.style.opacity = ''; return; }
+        const t = Math.min(1, Math.max(0, window.scrollY / (mast.offsetHeight + 120)));
+        mast.style.opacity = String(1 - t * 0.75);
+      };
+      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(fade); } }, { passive: true });
+      fade();
+    })();
+  </script>
+  <script src="weather-favicon.js?v=7"></script>
+</body>
+</html>

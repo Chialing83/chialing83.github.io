@@ -7,7 +7,7 @@
   <title>Automation Builder · Chia-Ling Chen</title>
   <meta name="description" content="Case study on redesigning Thryv's Automation Builder canvas so certified partners moved from Legacy to Classic.">
   <link rel="icon" href="avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=81">
+  <link rel="stylesheet" href="style.css?v=135">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-07SR0QSF4S"></script>
   <script>
@@ -23,7 +23,17 @@
       <nav class="anchors" aria-label="Site">
         <span class="nav-indicator" aria-hidden="true"></span>
         <a href="index.html">Home</a>
-        <a href="thryv-automation.html" aria-current="page">Work</a>
+        <div class="nav-menu nav-menu--work">
+          <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="work-menu">Work <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
+          <div class="nav-dropdown" id="work-menu">
+            <a href="thryv-automation.html" aria-current="page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/><path d="M6.5 9v4.5a2 2 0 0 0 2 2H14"/></svg>Automation Builder
+            </a>
+            <a href="agentic-design.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3.5 12.9 8.6 18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>Automation Agents
+            </a>
+          </div>
+        </div>
         <a href="about.html">About</a>
         <div class="nav-menu">
           <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="connect-menu">Connect <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
@@ -59,8 +69,8 @@
 
       <div class="case-body">
       <header class="case-head">
-        <p class="case-kicker">Thryv CRM · Automation Builder</p>
-        <h1>Let the business run itself</h1>
+        <p class="case-kicker">Thryv CRM Growth</p>
+        <h1>Automation Builder</h1>
         <p class="case-lead">Thryv's Automation Builder lets 200K small business owners set up workflows that run on their own. For example, a confirmation can go out the moment an appointment is booked. To stop splitting resources across two platforms, the business set out to consolidate on one unified platform. My job was to help around 38K accounts move to it, 95% of them certified partners. I helped design and ship core functions and improve the canvas features on the new platform to make the switch seamless and turn complex flows easy to build.</p>
       </header>
 
@@ -115,7 +125,7 @@
           <h2 id="discovery">Discovery</h2>
           <p>I ran a discovery workshop that pulled together partner interviews, in-app feedback, a journey map and competitor benchmarks. Building the workflow stood out as the biggest pain point.</p>
           <p class="case-callout">The migration itself was never the blocker. The data carried over intact and stayed secure in transit. The real cost sat downstream of that. Once a flow outgrew the viewport, every incremental edit — finding a node, reading a label, rearranging a branch — compounded, and the effort to work around that friction only grew. And critically, that friction was identical on Classic and Legacy. Partners had no real incentive to switch. I picked up that signal and turned it into an opportunity.</p>
-          <p>I narrowed nine opportunities to three with stakeholders. Each one had to pass two tests. It had to make large partner flows easier to manage and faster to build, and it had to simplify building for small business owners.</p>
+          <p>I narrowed nine candidate features to three with stakeholders. Each one had to pass two tests. It had to make large partner flows easier to manage and faster to build, and it had to simplify building for small business owners.</p>
         </div>
         <figure class="case-figure case-figure--wide">
           <img decoding="async" src="media/thryv-automation/pain-points.jpg" alt="User pain points grouped into themes to guide prioritization" loading="lazy">
@@ -123,7 +133,7 @@
         </figure>
         <figure class="case-figure">
           <img decoding="async" src="media/thryv-automation/friction.jpg" alt="Nine candidate features mapped against the Building workflow phase of the journey map, with Search on canvas, Tidy-up and Decision diamond highlighted in yellow" loading="lazy">
-          <figcaption>Candidate features mapped against the Building workflow phase. The ones in yellow went forward as the opportunities below.</figcaption>
+          <figcaption>Candidate features mapped against the Building workflow phase. The ones in yellow went forward as the features below.</figcaption>
         </figure>
       </section>
 
@@ -142,7 +152,7 @@
 
       <section class="case-section case-section--divided" aria-labelledby="search">
         <div class="case-text">
-          <p class="case-kicker">Opportunity 1</p>
+          <p class="case-kicker">Feature 1</p>
           <h2 id="search">Search on canvas</h2>
           <p>⚠️ In a flow of 20 sequences, partners spent minutes zooming and scanning just to find one sequence or spot an error.</p>
           <p class="case-callout">I designed search over the canvas with status and sequence-type filters, so users can find any sequence by name or type and see its state at a glance, from errors to unpublished changes. I also pushed for a "last mile" detail that always brings the selected sequence into view, so the feature never looks broken.</p>
@@ -190,7 +200,7 @@
 
       <section class="case-section case-section--divided" aria-labelledby="tidy">
         <div class="case-text">
-          <p class="case-kicker">Opportunity 2</p>
+          <p class="case-kicker">Feature 2</p>
           <h2 id="tidy">Tidy-up</h2>
           <p>⚠️ Flows moved over from Legacy arrived with overlapping sequences and crossed lines, and every new branch meant rearranging by hand.</p>
           <p class="case-callout">I designed Tidy-up, which arranges selected sequences into a clean, evenly spaced grid in one click.</p>
@@ -253,35 +263,6 @@
         </ul>
       </section>
 
-      <section class="case-section case-section--divided" aria-labelledby="next">
-        <div class="case-text">
-          <p class="case-kicker">Opportunity 3 · What's next</p>
-          <h2 id="next">AI-assisted Decision Diamond</h2>
-          <p>⚠️ The Decision Diamond decides which path a workflow takes, but in the current setup it is restricted to checking contact details. Small businesses run on jobs, estimates and appointments, so small business owners linked three flows with tags on contacts just to route an estimate by value. For partners, reading more than contact details would be a real upgrade to what they can automate. For small business owners the problem is discoverability. Fixing both would turn an underused feature into one that drives not just adoption but revenue. That is why we took it on next.</p>
-          <p class="case-callout">I redesigned it to read deals, quotes and appointments, with AI suggestions users review before applying. It’s a first step toward AI that builds whole workflows from a description.</p>
-          <p>During a PM transition I picked up the PM hat to spec four priority entities so the build kept moving. I tested the redesign with two groups, partners and small business owners, using a prototype wired to a live LLM so they judged real suggestions rather than scripted ones. That covered both halves of the problem: whether discoverability was solved, and whether each group got real value. After several rounds of debugging, QA and iteration, the feature is live with our alpha group. Beta and general availability are planned to follow.</p>
-        </div>
-        <figure class="case-figure case-figure--wide">
-          <img decoding="async" src="media/thryv-automation/decision-diamond.jpg?v=3" alt="AI-assisted Decision Diamond, preview" loading="lazy">
-          <figcaption>Design details will be shared once the feature reaches general availability</figcaption>
-        </figure>
-        <div class="case-text">
-          <h3>AI Design Framework</h3>
-          <p>I ran a workshop with product and engineering to collect their ideas for AI in the builder, and interviewed our pilot group for what they actually wanted. Together that came to 48 requests across five themes, from discovery and guidance to pre-launch checks. Every one sounded reasonable on its own, and they piled up faster than we could scope them.</p>
-        </div>
-        <figure class="case-figure case-figure--wide">
-          <img decoding="async" src="media/thryv-automation/ai-request-synthesis.jpg" alt="Workshop and interview requests mapped onto the builder's touch points, grouped into five themes with counts, alongside the Decision Diamond expansion model and the agent hierarchy" loading="lazy">
-          <figcaption>Every request mapped onto a touch point in the builder, then grouped into five themes.</figcaption>
-        </figure>
-        <div class="case-text">
-          <p>I built a taxonomy. One axis is the level of autonomy, how much the AI does and how much work is left to the user, from executing to reviewing to approving. The other is reach, from a focused config change to a platform wide agent. Three things decide where a feature lands: how users work today, how mature our model is for that task, and how much reliance the output can reasonably carry. Routing logic in the Decision Diamond changes where work goes, so a person reviews each rule before it takes effect. Auto renaming a sequence is small enough to check at a glance, so the guardrail is lighter. The user still reads and confirms it, and it is fast and easy.</p>
-        </div>
-        <figure class="case-figure case-figure--wide">
-          <img decoding="async" src="media/thryv-automation/ai-taxonomy.jpg" alt="Three phases from ideation to autonomy, each setting the level of AI involvement, the user workload, what the user gets from a prompt, and whether the user is executing, reviewing or approving" loading="lazy">
-          <figcaption>The taxonomy. Each phase sets how much the AI does and how much work is left to the user.</figcaption>
-        </figure>
-      </section>
-
       <section class="case-section" aria-labelledby="learning">
         <div class="case-text">
           <h2 id="learning">What I learned</h2>
@@ -296,7 +277,7 @@
         </figure>
       </section>
 
-      <p class="more case-back"><a href="about.html">See full experience →</a></p>
+      <p class="more case-back"><a href="agentic-design.html">See Automation Agents →</a></p>
       </div>
     </article>
 
@@ -314,8 +295,8 @@
       </nav>
     </footer>
   </main>
-  <script src="nav.js?v=2"></script>
-  <script src="motion.js?v=8"></script>
+  <script src="nav.js?v=4"></script>
+  <script src="motion.js?v=38"></script>
   <script src="lightbox.js?v=3"></script>
   <script>
     // Pin the hero and title like a masthead, letting the case study slide over them,

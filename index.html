@@ -7,7 +7,7 @@
   <title>Chia-Ling Chen</title>
   <meta name="description" content="Chia-Ling Chen, product builder at Thryv CRM.">
   <link rel="icon" href="avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=81">
+  <link rel="stylesheet" href="style.css?v=135">
   <script>
     // First visit to home: hold the intro until the welcome sequence plays (?intro replays it)
     try {
@@ -32,7 +32,17 @@
       <nav class="anchors" aria-label="Site">
         <span class="nav-indicator" aria-hidden="true"></span>
         <a href="index.html" aria-current="page">Home</a>
-        <a href="thryv-automation.html">Work</a>
+        <div class="nav-menu nav-menu--work">
+          <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="work-menu">Work <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
+          <div class="nav-dropdown" id="work-menu">
+            <a href="thryv-automation.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/><path d="M6.5 9v4.5a2 2 0 0 0 2 2H14"/></svg>Automation Builder
+            </a>
+            <a href="agentic-design.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3.5 12.9 8.6 18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>Automation Agents
+            </a>
+          </div>
+        </div>
         <a href="about.html">About</a>
         <div class="nav-menu">
           <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="connect-menu">Connect <svg class="nav-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
@@ -72,13 +82,46 @@
     <section id="highlights">
       <h2>Featured work</h2>
       <a class="card card--hero" href="thryv-automation.html">
-        <figure class="card__media">
-          <video autoplay src="media/thryv-automation/hero-flow.mp4?v=2" muted loop playsinline preload="auto" aria-label="Automation Builder canvas in Thryv CRM"></video>
+        <figure class="card__media card__media--agents">
+          <div class="agent-hero agent-hero--solo">
+            <div class="agent-hero__stage">
+              <video id="builder-demo" src="media/thryv-automation/home-card-builder.mp4" muted loop playsinline preload="none" data-play="hover" aria-label="Building an automation on the Thryv canvas, adding steps to each branch"></video>
+              <!-- A fixed crop of the canvas where the steps get added, drawn sharper by motion.js -->
+              <canvas class="agent-hero__backdrop" data-mirror="builder-demo" data-crop="620,180,1820,1200" data-fit="cover" aria-hidden="true"></canvas>
+            </div>
+          </div>
         </figure>
         <div class="card__body">
-          <div class="platform">Case study · Thryv CRM</div>
-          <h3>Let the business run itself</h3>
-          <p>Trusted by 200K+ small business owners, Thryv's Automation Builder helps them create growth and profit faster by automating the entire business. For example, a confirmation can go out the moment an appointment is booked. This case study highlights some of the features I designed and shipped to help move our most invested users onto one unified platform, finding the table stakes to close the gap and making the switch seamless and complex flows effortless to build.</p>
+          <div class="platform">Thryv CRM Growth</div>
+          <h3>Automation Builder</h3>
+          <p>Trusted by 200K+ small business owners, Thryv’s Automation Builder empowers businesses to accelerate growth through a simple drag-and-drop canvas. I led the design to bring users from Legacy onto Classic, the new unified platform, by identifying critical gaps and shipping core canvas features that made complex workflows easier to build and manage. 58.5% of partners moved over in two quarters, beating a 40% goal.</p>
+          <span class="card__cta">View case study →</span>
+        </div>
+      </a>
+      <a class="card card--hero" href="agentic-design.html">
+        <figure class="card__media card__media--agents">
+          <div class="agent-hero">
+            <div class="agent-hero__stage">
+              <video id="agents-demo" src="media/agentic-design/home-card-agents.mp4" muted loop playsinline preload="none" data-play="hover" aria-label="The Automation Builder agent reviewing a flow and proposing a fix"></video>
+              <!-- A fixed crop of the builder canvas: it scales with the frame but never reframes.
+                   The recording jumps the canvas 318,104 px at 7.85 s, so the crop follows and the nodes hold still. -->
+              <canvas class="agent-hero__backdrop" data-mirror="agents-demo" data-crop="68,208,1341,1025" data-fit="cover" data-max-y="1390" data-pan="7.85:318,104" aria-hidden="true"></canvas>
+            </div>
+            <!-- The agent chat, enlarged: motion.js repaints these crops of the clip on every frame -->
+            <!-- Sharpening for screens without retina density, where the clips show at about a third of their recorded size -->
+            <svg class="agent-hero__filters" width="0" height="0" aria-hidden="true" focusable="false"><filter id="agent-sharpen"><feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="0 -0.5 0 -0.5 3 -0.5 0 -0.5 0"/></filter></svg>
+            <canvas class="agent-hero__chat" data-mirror="agents-demo" data-crop="2156,144,712,1326" data-lift="2170,1475,230,110,0.12" aria-hidden="true"></canvas>
+          </div>
+        </figure>
+        <div class="card__body">
+          <div class="platform">Thryv CRM AI</div>
+          <h3>Automation Agents</h3>
+          <ul class="card__list">
+            <li>Auto-naming gives every node a clear name based on what it does</li>
+            <li>An AI insight agent on the dashboard surfaces what changed and what to do next</li>
+            <li>An Automation Builder agent helps users review broken nodes, suggests fixes and runs health checks</li>
+            <li>A Decision Diamond agent helps users configure complex rules they can review and adjust</li>
+          </ul>
           <span class="card__cta">View case study →</span>
         </div>
       </a>
@@ -210,8 +253,8 @@
       });
     }
   </script>
-  <script src="nav.js?v=2"></script>
-  <script src="motion.js?v=8"></script>
+  <script src="nav.js?v=4"></script>
+  <script src="motion.js?v=38"></script>
   <script src="weather-favicon.js?v=7"></script>
 </body>
 </html>

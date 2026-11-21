@@ -58,15 +58,16 @@ These rules apply to every piece of visible copy on the site.
 | `index.html` | Home. Hero, featured work card, experience timeline |
 | `about.html` | Full experience, one media item per role |
 | `thryv-automation.html` | The Thryv Automation Builder case study |
+| `agentic-design.html` | The Automation Agents case study, starting with the AI-assisted Decision Diamond |
 | `work.html` | Older project list. Nothing links to it |
 | `style.css` | All styling. Theme tokens at the top |
-| `motion.js` | Scroll reveal, and clips that load only when near the viewport |
-| `nav.js` | Sliding nav highlight and the Connect dropdown |
+| `motion.js` | Scroll reveal, clips that load only when near the viewport, and canvases that mirror a crop of a clip (the enlarged chat on the Automation Agents card) |
+| `nav.js` | Sliding nav highlight and the Work and Connect dropdowns |
 | `lightbox.js` | Full-screen viewer for images and clips |
 | `weather-favicon.js` | Tab icon showing the weather where the visitor is |
 | `icons/` | The eight weather PNGs the favicon switches between |
 
-Bump the `?v=` number on `style.css` (and on a JS file you change) in all four pages whenever
+Bump the `?v=` number on `style.css` (and on a JS file you change) in all five pages whenever
 you edit it, otherwise returning visitors keep the cached copy.
 
 ## Media
